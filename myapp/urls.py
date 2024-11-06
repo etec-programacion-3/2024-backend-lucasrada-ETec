@@ -2,8 +2,12 @@ from django.urls import path
 from .views import (
     ProductListCreateView, ProductDetailView,
     MusicProdDetailsListCreateView, MusicProdDetailsDetailView,
+    AudioProdDetailsListCreateView, AudioProdDetailsDetailView,
     OrderDetailsListCreateView, OrderDetailsDetailView,
-    # Include other views as needed...
+    OrderItemsListCreateView, OrderItemsDetailView,
+    UserListCreateView, UserDetailView,
+    UserPaymentListCreateView, UserPaymentDetailView,
+    MusicDiscographyListCreateView, MusicDiscographyDetailView,
 )
 
 urlpatterns = [
@@ -11,13 +15,40 @@ urlpatterns = [
     path('products/', ProductListCreateView.as_view(), name='product-list-create'),
     path('products/<int:pk>/', ProductDetailView.as_view(), name='product-detail'),
 
+     # ProductImage URLs
+    path('products/<int:product_id>/images/', ProductImageListCreateView.as_view(), name='product-image-list-create'),
+    path('products/images/<int:pk>/', ProductImageDetailView.as_view(), name='product-image-detail'),
+
+
+
     # MusicProdDetails URLs
     path('music-products/', MusicProdDetailsListCreateView.as_view(), name='musicprod-list-create'),
     path('music-products/<int:pk>/', MusicProdDetailsDetailView.as_view(), name='musicprod-detail'),
+
+    # AudioProdDetails URLs
+    path('audio-products/', AudioProdDetailsListCreateView.as_view(), name='audioprod-list-create'),
+    path('audio-products/<int:pk>/', AudioProdDetailsDetailView.as_view(), name='audioprod-detail'),
 
     # OrderDetails URLs
     path('orders/', OrderDetailsListCreateView.as_view(), name='order-list-create'),
     path('orders/<int:pk>/', OrderDetailsDetailView.as_view(), name='order-detail'),
 
-    # Add URLs for other models...
+    # OrderItems URLs
+    path('order-items/', OrderItemsListCreateView.as_view(), name='order-items-list-create'),
+    path('order-items/<int:pk>/', OrderItemsDetailView.as_view(), name='order-items-detail'),
+
+    # User URLs
+    path('users/', UserListCreateView.as_view(), name='user-list-create'),
+    path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
+
+    # UserPayment URLs
+    path('user-payments/', UserPaymentListCreateView.as_view(), name='user-payment-list-create'),
+    path('user-payments/<int:pk>/', UserPaymentDetailView.as_view(), name='user-payment-detail'),
+
+    # MusicDiscography URLs
+    path('music-discography/', MusicDiscographyListCreateView.as_view(), name='music-discography-list-create'),
+    path('music-discography/<int:pk>/', MusicDiscographyDetailView.as_view(), name='music-discography-detail'),
+    
+    #
+
 ]

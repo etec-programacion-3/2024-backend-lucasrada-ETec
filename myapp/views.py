@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import Product, MusicProdDetails, AudioProdDetails, OrderDetails, OrderItems, User, UserPayment, MusicDiscography
-from .serializers import ProductSerializer, MusicProdDetailsSerializer, AudioProdDetailsSerializer, OrderDetailsSerializer, OrderItemsSerializer, UserSerializer, UserPaymentSerializer, MusicDiscographySerializer
+from .models import Product, MusicProdDetails, ProductImage, AudioProdDetails, OrderDetails, OrderItems, User, UserPayment, MusicDiscography
+from .serializers import ProductSerializer, ProductImageSerializer, MusicProdDetailsSerializer, AudioProdDetailsSerializer, OrderDetailsSerializer, OrderItemsSerializer, UserSerializer, UserPaymentSerializer, MusicDiscographySerializer
 
 # Product Views
 class ProductListCreateView(generics.ListCreateAPIView):
@@ -10,6 +10,7 @@ class ProductListCreateView(generics.ListCreateAPIView):
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
 
 # MusicProdDetails Views
 class MusicProdDetailsListCreateView(generics.ListCreateAPIView):
@@ -73,3 +74,18 @@ class MusicDiscographyListCreateView(generics.ListCreateAPIView):
 class MusicDiscographyDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MusicDiscography.objects.all()
     serializer_class = MusicDiscographySerializer
+
+# Vista para listar y crear imágenes de un producto
+class ProductImageListCreateView(generics.ListCreateAPIView):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
+
+    # Si deseas que esta vista sea filtrada por producto:
+    def get_queryset(self):
+        product_id = self.kwargs['product_id']
+        return ProductImage.objects.filter(product_id=product_id)
+
+# Vista para obtener, actualizar o eliminar una imagen específica
+class ProductImageDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer

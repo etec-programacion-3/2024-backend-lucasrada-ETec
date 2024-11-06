@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, MusicProdDetails, AudioProdDetails, OrderDetails, OrderItems, User, UserPayment, MusicDiscography
+from .models import Product, ProductImage, MusicProdDetails, AudioProdDetails, OrderDetails, OrderItems, User, UserPayment, MusicDiscography
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=45, required=True)
@@ -77,4 +77,11 @@ class MusicDiscographySerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicDiscography
         fields = '__all__'
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())  # O un 'StringRelatedField' si quieres mostrar el nombre del producto
+
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'product', 'image']
 
