@@ -54,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(max_length=45, required=True)
     phone = serializers.CharField(max_length=15)
     full_address = serializers.CharField(max_length=75)
-
+    is_admin = serializers.BooleanField(default=False)
     class Meta:
         model = User
         fields = '__all__'
@@ -83,5 +83,5 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductImage
-        fields = ['id', 'product', 'image']
+        fields = ['id', 'product', 'image_url']  # Usamos 'image_url' en lugar de 'image'
 

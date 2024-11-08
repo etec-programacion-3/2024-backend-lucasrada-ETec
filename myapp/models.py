@@ -50,7 +50,7 @@ class User(models.Model):
     full_name = models.CharField(max_length=45)
     phone = models.CharField(max_length=15)
     full_address = models.CharField(max_length=75)
-
+    is_admin = models.BooleanField(default=False)
     def __str__(self):
         return self.username
 class UserPayment(models.Model):
@@ -74,7 +74,7 @@ class MusicDiscography(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='product_images/')
+    image_url = models.URLField(null=True)  # Almacena la URL de la imagen
 
     def __str__(self):
-        return f"Image for {self.product.name}"
+        return f"Image  for {self.product.name}"

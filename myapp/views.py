@@ -89,3 +89,7 @@ class ProductImageListCreateView(generics.ListCreateAPIView):
 class ProductImageDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
+# Vista para listar todas las imágenes
+class ProductImageListView(generics.ListCreateAPIView):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
