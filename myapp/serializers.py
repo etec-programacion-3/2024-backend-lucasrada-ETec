@@ -79,9 +79,9 @@ class MusicDiscographySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductImageSerializer(serializers.ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())  # O un 'StringRelatedField' si quieres mostrar el nombre del producto
+    product_id = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())  # O un 'StringRelatedField' si quieres mostrar el nombre del producto
 
     class Meta:
         model = ProductImage
-        fields = ['id', 'product', 'image_url']  # Usamos 'image_url' en lugar de 'image'
+        fields = ['id', 'product_id', 'image_url']  # Usamos 'image_url' en lugar de 'image'
 

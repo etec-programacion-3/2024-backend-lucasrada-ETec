@@ -85,10 +85,18 @@ class ProductImageListCreateView(generics.ListCreateAPIView):
         product_id = self.kwargs['product_id']
         return ProductImage.objects.filter(product_id=product_id)
 
+
+
+
 # Vista para obtener, actualizar o eliminar una imagen específica
 class ProductImageDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
+
+
+
+
+
 # Vista para listar todas las imágenes
 class ProductImageListView(generics.ListCreateAPIView):
     queryset = ProductImage.objects.all()

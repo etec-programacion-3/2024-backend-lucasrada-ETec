@@ -21,7 +21,7 @@ urlpatterns = [
     path('products/<int:product_id>/images/', ProductImageListCreateView.as_view(), name='product-image-list-create'),
 
     # Ruta para acceder a una imagen específica por su ID
-    path('products/images/<int:pk>/', ProductImageDetailView.as_view(), name='product-image-detail'),
+    path('images/<int:pk>/', ProductImageDetailView.as_view(), name='product-image-detail'),
 
     # Ruta para acceder a todas las imágenes
     path('images/', ProductImageListView.as_view(), name='product-image-list'),
