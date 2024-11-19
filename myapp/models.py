@@ -4,9 +4,8 @@ from django.db import models
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=45)
-    desc = models.CharField(max_length=300)
+    descri = models.CharField(max_length=300)
     price = models.IntegerField()
-    category = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -46,7 +45,7 @@ class OrderItems(models.Model):
 class User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=45)
-    password = models.CharField(max_length=45)
+    passwrd = models.CharField(max_length=45)
     full_name = models.CharField(max_length=45)
     phone = models.CharField(max_length=15)
     full_address = models.CharField(max_length=75)

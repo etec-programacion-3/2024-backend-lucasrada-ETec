@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-94oltv!$5#6(qa%#d1rte@+415p%g-^2rld4$@b1ki9j7$kqpe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.42.12', '192.168.56.1']
+ALLOWED_HOSTS = ['192.168.42.12', '192.168.56.1', '127.0.0.1']
 
 
 # Application definition
@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'audio_sql',  # El nombre de tu base de datos MySQL
         'USER': 'root',      # Tu usuario de MySQL
-        'PASSWORD': '1234',  # La contraseña de MySQL
+        'PASSWORD': 'pancho4056509',  # La contraseña de MySQL
         'HOST': 'localhost',          # O la IP de tu servidor de base de datos
         'PORT': '3306',               # El puerto de MySQL (por defecto 3306)
     }

@@ -3,9 +3,8 @@ from .models import Product, ProductImage, MusicProdDetails, AudioProdDetails, O
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=45, required=True)
-    desc = serializers.CharField(max_length=300, required=True)
+    descri = serializers.CharField(max_length=300, required=True)
     price = serializers.IntegerField()
-    category = serializers.IntegerField()
 
     class Meta:
         model = Product
@@ -50,7 +49,7 @@ class OrderItemsSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=45, required=True)
-    password = serializers.CharField(max_length=45, required=True)
+    passwrd = serializers.CharField(max_length=45, required=True)
     full_name = serializers.CharField(max_length=45, required=True)
     phone = serializers.CharField(max_length=15)
     full_address = serializers.CharField(max_length=75)
