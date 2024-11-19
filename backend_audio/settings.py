@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'audio_sql',  # El nombre de tu base de datos MySQL
         'USER': 'root',      # Tu usuario de MySQL
-        'PASSWORD': 'pancho4056509',  # La contraseña de MySQL
+        'PASSWORD': '1234',  # La contraseña de MySQL
         'HOST': 'localhost',          # O la IP de tu servidor de base de datos
         'PORT': '3306',               # El puerto de MySQL (por defecto 3306)
     }
