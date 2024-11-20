@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Product, ProductImage, MusicProdDetails, AudioProdDetails, OrderDetails, OrderItems, User, UserPayment, MusicDiscography
+from django.contrib.auth.hashers import check_password
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=45, required=True)
@@ -49,7 +51,7 @@ class OrderItemsSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=45, required=True)
-    passwrd = serializers.CharField(max_length=45, required=True)
+    password = serializers.CharField(max_length=45, required=True)
     full_name = serializers.CharField(max_length=45, required=True)
     phone = serializers.CharField(max_length=15)
     full_address = serializers.CharField(max_length=75)
@@ -57,6 +59,43 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+
+
+
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'full_name', 'phone', 'full_address']
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = User.objects.create_user(**validated_data, password=password)
+        return user
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        try:
+            user = User.objects.get(username=data['username'])
+        except User.DoesNotExist:
+            raise serializers.ValidationError("Invalid username or password")
+
+        if not check_password(data['password'], user.password):
+            raise serializers.ValidationError("Invalid username or password")
+
+        return {"user": user}  # En lugar de devolver solo datos básicos, devolvemos el usuario
+
+
+
+
 
 class UserPaymentSerializer(serializers.ModelSerializer):
     payment_type = serializers.CharField(max_length=45)

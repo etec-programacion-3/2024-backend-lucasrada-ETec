@@ -1,6 +1,13 @@
 from rest_framework import generics
 from .models import Product, MusicProdDetails, ProductImage, AudioProdDetails, OrderDetails, OrderItems, User, UserPayment, MusicDiscography
 from .serializers import ProductSerializer, ProductImageSerializer, MusicProdDetailsSerializer, AudioProdDetailsSerializer, OrderDetailsSerializer, OrderItemsSerializer, UserSerializer, UserPaymentSerializer, MusicDiscographySerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import AllowAny
+from .serializers import RegisterSerializer, LoginSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Product Views
 class ProductListCreateView(generics.ListCreateAPIView):
@@ -56,6 +63,40 @@ class UserListCreateView(generics.ListCreateAPIView):
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+
+
+class RegisterView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        # Valida las credenciales del usuario
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            refresh = RefreshToken.for_user(user)
+
+            # Devuelve el token JWT (Refresh y Access)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 # UserPayment Views
 class UserPaymentListCreateView(generics.ListCreateAPIView):
