@@ -8,16 +8,13 @@ from .views import (
     UserListCreateView, UserDetailView,
     UserPaymentListCreateView, UserPaymentDetailView,
     MusicDiscographyListCreateView, MusicDiscographyDetailView,
-    ProductImageDetailView, ProductImageListCreateView, ProductImageListView,RegisterView, LoginView
+    ProductImageDetailView, ProductImageListCreateView, ProductImageListView, SignUpView, LoginView
 )
 
 urlpatterns = [
     
-    path('register/', RegisterView.as_view(), name='register'),
+    path('signup/', SignUpView.as_view(), name='signup'),
     path('login/', LoginView.as_view(), name='login'),
-
-
-
 
     # Product URLs
     path('products/', ProductListCreateView.as_view(), name='product-list-create'),

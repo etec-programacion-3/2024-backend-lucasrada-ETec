@@ -44,36 +44,32 @@ class OrderItems(models.Model):
     def __str__(self):
         return f"OrderItem {self.idOrderItems}"
 
-
-
 #################-----  Modificaciones para login y register mas seguros y mejores y tal -----##################
 class UserManager(BaseUserManager):
-    def create_user(self, username, password, full_name, **extra_fields):
+    def create_user(self, username, email, password, **extra_fields):
         if not username:
             raise ValueError("The Username must be set")
         extra_fields.setdefault('is_admin', False)
-        user = self.model(username=username, full_name=full_name, **extra_fields)
+        user = self.model(username=username, email=email, **extra_fields)
         user.password = make_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password, full_name, **extra_fields):
+    def create_superuser(self, username, email, password, **extra_fields):
         extra_fields.setdefault('is_admin', True)
-        return self.create_user(username, password, full_name, **extra_fields)
+        return self.create_user(username, email, password, **extra_fields)
 
 class User(AbstractBaseUser):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=45, unique=True)
-    password = models.CharField(max_length=128, default='defaultpassword')  # Más seguro
-    full_name = models.CharField(max_length=45)
-    phone = models.CharField(max_length=15, null=True, blank=True)
-    full_address = models.CharField(max_length=75, null=True, blank=True)
+    email = models.EmailField(default='example@example.com')
+    password = models.CharField(max_length=128, default='defaultpassword')
     is_admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['full_name']
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return self.username

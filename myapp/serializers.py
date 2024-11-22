@@ -51,26 +51,19 @@ class OrderItemsSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=45, required=True)
+    email = serializers.EmailField(max_length=45, required=True)
     password = serializers.CharField(max_length=45, required=True)
-    full_name = serializers.CharField(max_length=45, required=True)
-    phone = serializers.CharField(max_length=15)
-    full_address = serializers.CharField(max_length=75)
     is_admin = serializers.BooleanField(default=False)
     class Meta:
         model = User
         fields = '__all__'
 
-
-
-
-
-
-class RegisterSerializer(serializers.ModelSerializer):
+class SignUpSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'full_name', 'phone', 'full_address']
+        fields = ['username', 'email', 'password']
 
     def create(self, validated_data):
         password = validated_data.pop('password')
